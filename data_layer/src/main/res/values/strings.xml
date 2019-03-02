@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">data_layer</string>
+    <string name="temperature_error">This device doesn\'t support temperature sensor data</string>
+</resources>
