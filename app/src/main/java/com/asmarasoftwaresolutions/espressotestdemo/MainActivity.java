@@ -7,10 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
+    EditText mCityName;
     TextView mTextMessage, mPressure, mTemperature;
     Button mgetTemp, mGetPres, mUnsubscribe;
     Presenter mPresenter;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mGetPres.setOnClickListener(this);
         mgetTemp.setOnClickListener(this);
         mUnsubscribe.setOnClickListener(this);
+        mCityName = findViewById(R.id.et_city_name);
         mPresenter = new Presenter();
     }
 
@@ -59,12 +61,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.b_get_pressure:
-                if(mPresenter.getPressure()!=null)
-                mPressure.setText(String.valueOf(mPresenter.getPressure()[0]));
+                if(mCityName.getText() == null) mCityName.setText("");
+                mPressure.setText(String.valueOf(mPresenter.getPressure(mCityName.getText().toString())[0]));
                 break;
             case R.id.b_get_temp:
-                if(mPresenter.getTemperature()!=null)
-                mTemperature.setText(String.valueOf(mPresenter.getTemperature()[0]));
+                if(mCityName.getText() == null) mCityName.setText("");
+                mTemperature.setText(String.valueOf(mPresenter.getTemperature(mCityName.getText().toString())[1]));
                 break;
             case R.id.b_unsubscribe:
                 mPresenter.unsubscribe();

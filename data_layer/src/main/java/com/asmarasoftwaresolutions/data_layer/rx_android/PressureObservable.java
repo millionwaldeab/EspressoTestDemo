@@ -18,7 +18,7 @@ public class PressureObservable extends Observable<float[]> {
     }
 
     public static Observable<float[]> getPressureObservable(){
-        mPressureObservable = Observable.fromArray(mPressureInterface.getPressure());
+        mPressureObservable = Observable.fromArray(mPressureInterface.getPressure(""));
         return mPressureObservable;
     }
 

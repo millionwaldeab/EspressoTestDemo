@@ -28,14 +28,14 @@ public class Presenter {
     private Observable<float[]> mPressureObservable;
     private CompositeDisposable mDisposable = new CompositeDisposable();
 
-    public float[] getPressure(){
+    public float[] getPressure(String city){
         subscribePressure();
-        return mPressureInterface.getPressure();
+        return mPressureInterface.getPressure(city);
     }
 
-    public float[] getTemperature(){
+    public float[] getTemperature(String city){
         subscribeTemperature();
-        return mTemperatureInterface.getTemperature();
+        return mTemperatureInterface.getTemperature(city);
     }
 
     public void subscribePressure(){

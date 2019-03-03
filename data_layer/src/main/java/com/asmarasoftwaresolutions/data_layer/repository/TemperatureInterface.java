@@ -2,5 +2,5 @@ package com.asmarasoftwaresolutions.data_layer.repository;
 
 @FunctionalInterface
 public interface TemperatureInterface {
-    float[] getTemperature();
+    float[] getTemperature(String city);
 }

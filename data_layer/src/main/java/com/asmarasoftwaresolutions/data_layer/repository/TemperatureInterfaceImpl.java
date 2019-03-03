@@ -8,8 +8,9 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 import android.widget.Toast;
-
+import com.asmarasoftwaresolutions.data_layer.Constants;
 import com.asmarasoftwaresolutions.data_layer.R;
+import com.asmarasoftwaresolutions.data_layer.network.FetchWeatherData;
 
 public class TemperatureInterfaceImpl implements TemperatureInterface, SensorEventListener {
 
@@ -23,18 +24,16 @@ public class TemperatureInterfaceImpl implements TemperatureInterface, SensorEve
         this.mContext = context;
     }
 
-    public void setUp() {
-        registerSensorListener();
+    public void registerSensorListener(String city) {
         mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-    }
-
-    public void registerSensorListener() {
         PackageManager packageManager = mContext.getPackageManager();
         if (!packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_AMBIENT_TEMPERATURE)) {//do something}
             //if(mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) !=null)
             mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
+            //Here get city wide request using retrofit
+            mTemperature = FetchWeatherData.makeWeatherRequest(city, Constants.KEY);
             Log.e(TAG, "Device doesn't support temperature sensor data");
             Toast.makeText(mContext, mContext.getResources().getString(R.string.temperature_error), Toast.LENGTH_LONG).show();
         }
@@ -56,7 +55,8 @@ public class TemperatureInterfaceImpl implements TemperatureInterface, SensorEve
     }
 
     @Override
-    public float[] getTemperature() {
+    public float[] getTemperature(String city) {
+        registerSensorListener(city);
         return mTemperature;
     }
 }

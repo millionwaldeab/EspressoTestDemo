@@ -9,4 +9,5 @@
     <string name="get_temperature">GET TEMPERATURE</string>
     <string name="get_pressure">GET PRESSURE</string>
     <string name="unsubscribed">Successfully unsubscribed</string>
+    <string name="enter_city">Enter city name in case your device doesn\'t support.</string>
 </resources>

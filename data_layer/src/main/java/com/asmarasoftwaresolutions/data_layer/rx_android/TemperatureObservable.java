@@ -19,7 +19,7 @@ public class TemperatureObservable extends Observable<float[]> {
     }
 
     public static Observable<float[]> getTemperatureObservable(){
-        mTempreatureObservable = Observable.fromArray(mTempretureInterface.getTemperature());
+        mTempreatureObservable = Observable.fromArray(mTempretureInterface.getTemperature(""));
         return mTempreatureObservable;
     }
 

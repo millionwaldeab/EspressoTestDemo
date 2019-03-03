@@ -6,8 +6,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.Toast;
-
+import com.asmarasoftwaresolutions.data_layer.Constants;
 import com.asmarasoftwaresolutions.data_layer.R;
+import com.asmarasoftwaresolutions.data_layer.network.FetchWeatherData;
+
 
 public class PressureInterfaceImpl implements PressureInterface, SensorEventListener {
 
@@ -20,16 +22,15 @@ public class PressureInterfaceImpl implements PressureInterface, SensorEventList
         this.mContext = context;
     }
 
-    public void setUp() {
-        registerSensorListener();
+
+    public void registerSensorListener(String city) {
         mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
-    }
-
-    public void registerSensorListener() {
         if(mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) !=null) {
             mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }else{
+            //Here get city wide request using retrofit
+            mPressure = FetchWeatherData.makeWeatherRequest(city, Constants.KEY);
             Toast.makeText(mContext, mContext.getResources().getString(R.string.temperature_error), Toast.LENGTH_LONG).show();
         }
     }
@@ -49,7 +50,8 @@ public class PressureInterfaceImpl implements PressureInterface, SensorEventList
     }
 
     @Override
-    public float[] getPressure() {
+    public float[] getPressure(String city) {
+        registerSensorListener(city);
         return mPressure;
     }
 }
