@@ -9,3 +9,5 @@ observable and observer pattern to collect the temperature and pressure data and
 is not interested in collecting data anymore or the activity is destroyed, they can unsubscribe/unsubscribed automatically.
 
 The activity is tested using automated and manual test case with espresso. 
+
+If the user device doesn't have the capability to measure pressure or temperature, the user will be able to pass the city name to get weather data. This is done by making a web request to https://home.openweathermap.org using retrofit and parsing the JSON data with GSON converter library and provide the pressure and temperature of the city.
